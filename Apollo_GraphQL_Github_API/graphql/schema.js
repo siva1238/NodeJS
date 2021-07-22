@@ -5,6 +5,19 @@ const { gql } = require("apollo-server");
 // your data.
 const typeDefs = gql`
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+  type Book {
+    id: ID!
+    title: String!
+    author: String!
+    price: Int!
+    branch: String!
+  }
+
+  type BookData {
+    books: [Book!]!
+    totalPrice: Int!
+  }
+
   type User {
     id: ID!
     name: String!
@@ -27,26 +40,51 @@ const typeDefs = gql`
     lng: String!
   }
   type Company {
-    name: String
-    catchPhrase: String
-    bs: String
+    name: String!
+    catchPhrase: String!
+    bs: String!
+  }
+  input GeoInputData {
+    lat: String!
+    lng: String!
+  }
+  input AddressInputData {
+    street: String!
+    suite: String!
+    city: String!
+    zipcode: String!
+    geo: GeoInputData!
+  }
+  input CompanyInputData {
+    name: String!
+    catchPhrase: String!
+    bs: String!
   }
 
   input UserInputData {
     id: ID!
-    email: String!
     name: String!
-    password: String!
-    phone: Int!
+    username: String!
+    email: String!
+    phone: String!
     website: String!
+    address: AddressInputData!
+    company: CompanyInputData!
+  }
+  input bookFilter {
+    ids: [ID!]!
   }
 
   type Query {
-    users: [User]
+    users: [User]!
+    user(id: ID!): User!
+    books(input: bookFilter): [BookData]!
   }
 
   type Mutation {
-    createUser(userInput: UserInputData): User!
+    createUser(input: UserInputData): User!
+    updateUser(id: ID!, input: UserInputData): User!
+    deleteUser(id: ID!): Boolean
   }
 `;
 

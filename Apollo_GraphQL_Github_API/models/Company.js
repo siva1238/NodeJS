@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
 
-const User = sequelize.define("user", {
+const Company = sequelize.define("company", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -10,13 +10,7 @@ const User = sequelize.define("user", {
     primaryKey: true,
   },
   name: Sequelize.STRING,
-  username: Sequelize.STRING,
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-
-  phone: Sequelize.STRING,
-  website: Sequelize.STRING,
+  catchPhrase: Sequelize.STRING,
+  bs: Sequelize.STRING,
 });
-module.exports = User;
+module.exports = Company;
